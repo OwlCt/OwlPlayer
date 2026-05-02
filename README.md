@@ -4,7 +4,8 @@
 
 OwlPlayer is a self-hosted music streaming app for your local library. It scans your audio files into PostgreSQL, serves them via direct Range requests or HLS, and presents a Spotify-like UI on desktop and mobile (PWA). Apple Music is supported as an **optional** metadata/lyrics enhancement source — never as a streaming source.
 
-> ⚠️ **当前状态**：v0.1.0 早期预览版。API 与数据结构可能在 1.0 之前发生破坏性变更，生产部署请自行评估。
+> ⚠️ **当前状态**：v0.1.0 早期预览版。API 与数据结构可能在 1.0 之前发生破坏性变更。
+> OwlPlayer 目前尚未完成生产级安全加固（not production hardened），请优先在受信任的家庭网络 / NAS 环境中部署；如需公网访问，请自行配置 HTTPS、反向代理访问控制、备份与监控。
 
 ## 截图
 
@@ -27,7 +28,7 @@ OwlPlayer is a self-hosted music streaming app for your local library. It scans 
 ## 快速开始（Docker）
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/OwlCt/OwlPlayer.git
 cd OwlPlayer
 cp .env.example .env
 # 至少设置：
@@ -46,7 +47,7 @@ docker compose up -d --build
 
 ## 本地开发
 
-需要 Go 1.24+、Node 18+、PostgreSQL 14+。
+需要 Go 1.25.9+、Node 22+、PostgreSQL 14+。
 
 ```bash
 # 后端

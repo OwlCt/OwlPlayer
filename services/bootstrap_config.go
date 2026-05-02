@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"main/utils/structs"
+	"github.com/OwlCt/OwlPlayer/utils/structs"
 
 	"gopkg.in/yaml.v3"
 )
@@ -149,4 +149,3 @@ func TestDatabaseConfig(ctx context.Context, cfg *DatabaseConfig) error {
 
 	return db.HealthCheck(ctx)
 }
-

@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"testing"
 
-	"main/models"
+	"github.com/OwlCt/OwlPlayer/models"
 )
 
 func TestLocalLibrarySnapshotResolverResolveAlbumUsesReleaseTypeAndFallsBackToAlbum(t *testing.T) {

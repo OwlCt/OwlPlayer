@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"strings"
 
-	"main/models"
-	"main/services"
+	"github.com/OwlCt/OwlPlayer/models"
+	"github.com/OwlCt/OwlPlayer/services"
 )
 
 // LibraryAlbumsHandler handles library albums API endpoints

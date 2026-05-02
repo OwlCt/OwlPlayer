@@ -1,7 +1,7 @@
 package services
 
 import (
-	"main/models"
+	"github.com/OwlCt/OwlPlayer/models"
 	"sort"
 	"testing"
 	"time"
@@ -43,8 +43,8 @@ func genPlayHistoryItem() gopter.Gen {
 		genPlayHistoryName(),
 		genPlayHistoryArtistID(),
 		genPlayHistoryName(),
-		genPlayHistorySongID(), // albumID
-		genPlayHistoryName(),   // albumName
+		genPlayHistorySongID(),      // albumID
+		genPlayHistoryName(),        // albumName
 		gen.IntRange(30000, 600000), // duration 30s to 10min in ms
 	).Map(func(vals []interface{}) *models.PlayHistoryItem {
 		return &models.PlayHistoryItem{
@@ -59,7 +59,6 @@ func genPlayHistoryItem() gopter.Gen {
 		}
 	})
 }
-
 
 // =============================================================================
 // Mock Play History Store for Property Tests
@@ -150,7 +149,6 @@ func (s *MockPlayHistoryStore) GetTopTracks(limit int) []*models.TopTrackItem {
 	}
 	return result
 }
-
 
 // =============================================================================
 // Property Tests for Play History
@@ -246,7 +244,6 @@ func TestProperty_PlayHistoryAggregationByArtist(t *testing.T) {
 
 	properties.TestingRun(t)
 }
-
 
 // **Feature: user-profile-search-history, Property 3: Play history aggregation by track**
 // **Validates: Requirements 2.3, 2.5**

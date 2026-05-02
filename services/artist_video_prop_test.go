@@ -1,7 +1,7 @@
 package services
 
 import (
-	"main/utils/ampapi"
+	"github.com/OwlCt/OwlPlayer/utils/ampapi"
 	"testing"
 
 	"pgregory.net/rapid"

@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"time"
 
-	"main/models"
+	"github.com/OwlCt/OwlPlayer/models"
 )
 
 type localLibrarySnapshotResolver struct {

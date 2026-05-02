@@ -17,7 +17,7 @@ import (
 	"strings"
 	"time"
 
-	"main/models"
+	"github.com/OwlCt/OwlPlayer/models"
 )
 
 var (

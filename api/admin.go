@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"main/services"
+	"github.com/OwlCt/OwlPlayer/services"
 )
 
 // AdminHandler handles admin-related API endpoints

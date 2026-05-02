@@ -1,7 +1,7 @@
 package services
 
 import (
-	"main/models"
+	"github.com/OwlCt/OwlPlayer/models"
 	"sort"
 	"testing"
 	"time"

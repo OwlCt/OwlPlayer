@@ -6,8 +6,8 @@ import (
 	"log"
 	"net/http"
 
-	"main/models"
-	"main/services"
+	"github.com/OwlCt/OwlPlayer/models"
+	"github.com/OwlCt/OwlPlayer/services"
 )
 
 // PlaybackStateHandler handles playback state API endpoints
@@ -128,7 +128,7 @@ func (h *PlaybackStateHandler) handleSavePlaybackState(w http.ResponseWriter, r 
 	}
 
 	state := req.ToPlaybackState(claims.UserID)
-	
+
 	// Debug: log request source info to track where saves are coming from
 	userAgent := r.Header.Get("User-Agent")
 	contentType := r.Header.Get("Content-Type")

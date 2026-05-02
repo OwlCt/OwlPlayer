@@ -1,6 +1,6 @@
 # Multi-stage build for OwlPlayer
 # Stage 1: Build frontend
-FROM node:18-alpine AS frontend-builder
+FROM node:22-alpine AS frontend-builder
 
 WORKDIR /app/frontend
 
@@ -8,7 +8,7 @@ WORKDIR /app/frontend
 COPY frontend/package*.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm ci
 
 # Copy frontend source
 COPY frontend/ ./
@@ -17,7 +17,7 @@ COPY frontend/ ./
 RUN npm run build
 
 # Stage 2: Build Go backend
-FROM golang:1.24-alpine AS backend-builder
+FROM golang:1.25.9-alpine AS backend-builder
 
 WORKDIR /app
 

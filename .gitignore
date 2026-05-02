@@ -28,6 +28,7 @@ frontend/node_modules/
 frontend/dist/
 frontend/.vite/
 frontend/.env
+frontend/.vitest*.json
 
 # IDE and editor files
 .vscode/
@@ -49,6 +50,7 @@ tmp/
 temp/
 *.tmp
 .codex-tmp/
+**/testdata/rapid/**/*.fail
 
 # AI assistant files
 CLAUDE.md

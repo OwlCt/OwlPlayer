@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"strings"
 
-	"main/models"
-	"main/services"
+	"github.com/OwlCt/OwlPlayer/models"
+	"github.com/OwlCt/OwlPlayer/services"
 )
 
 // LikedSongsHandler handles liked songs API endpoints

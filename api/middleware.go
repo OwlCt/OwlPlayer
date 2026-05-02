@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strings"
 
-	"main/services"
+	"github.com/OwlCt/OwlPlayer/services"
 )
 
 // ContextKey is a type for context keys

@@ -9,8 +9,8 @@ import (
 	"testing"
 	"time"
 
-	"main/models"
-	"main/services"
+	"github.com/OwlCt/OwlPlayer/models"
+	"github.com/OwlCt/OwlPlayer/services"
 )
 
 type slowScanRepo struct {

@@ -4,7 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	"main/models"
+	"github.com/OwlCt/OwlPlayer/models"
 	"time"
 
 	"github.com/lib/pq"

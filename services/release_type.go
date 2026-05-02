@@ -3,7 +3,7 @@ package services
 import (
 	"strings"
 
-	"main/models"
+	"github.com/OwlCt/OwlPlayer/models"
 )
 
 const shortReleaseMaxTrackCount = 6

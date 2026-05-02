@@ -6,7 +6,7 @@ import (
 	"os"
 	"strings"
 
-	"main/models"
+	"github.com/OwlCt/OwlPlayer/models"
 )
 
 type SetupState string
@@ -27,13 +27,13 @@ type BootstrapDatabaseSummary struct {
 }
 
 type SetupStatus struct {
-	State                  SetupState              `json:"state"`
-	SetupRequired          bool                    `json:"setup_required"`
-	DatabaseConnected      bool                    `json:"database_connected"`
-	BootstrapTokenRequired bool                    `json:"bootstrap_token_required"`
-	HasInitialAdmin        bool                    `json:"has_initial_admin"`
-	RuntimeConfigured      bool                    `json:"runtime_configured"`
-	RestartRequired        bool                    `json:"restart_required"`
+	State                  SetupState               `json:"state"`
+	SetupRequired          bool                     `json:"setup_required"`
+	DatabaseConnected      bool                     `json:"database_connected"`
+	BootstrapTokenRequired bool                     `json:"bootstrap_token_required"`
+	HasInitialAdmin        bool                     `json:"has_initial_admin"`
+	RuntimeConfigured      bool                     `json:"runtime_configured"`
+	RestartRequired        bool                     `json:"restart_required"`
 	Database               BootstrapDatabaseSummary `json:"database"`
 }
 

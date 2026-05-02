@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"main/models"
+	"github.com/OwlCt/OwlPlayer/models"
 )
 
 func TestLocalLyricsServiceReturnsUnavailableAndSchedulesEnhancementWhenMappingMissing(t *testing.T) {

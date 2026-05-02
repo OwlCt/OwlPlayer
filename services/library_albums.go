@@ -5,7 +5,7 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
-	"main/models"
+	"github.com/OwlCt/OwlPlayer/models"
 )
 
 // Library albums service errors

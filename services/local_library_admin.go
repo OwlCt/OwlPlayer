@@ -5,18 +5,18 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
-	"main/models"
+	"github.com/OwlCt/OwlPlayer/models"
 	"sync"
 	"time"
 )
 
 var (
-	ErrLocalLibraryDisabled         = errors.New("local library is not enabled")
-	ErrLocalLibraryScanUnavailable  = errors.New("local library scanner is not available")
-	ErrLocalLibraryScrapeDisabled   = errors.New("local library metadata enhancement is not enabled")
-	ErrLocalLibraryScanRunning      = errors.New("local library scan is already running")
-	ErrLocalLibraryScrapeRunning    = errors.New("local library scrape is already running")
-	ErrInvalidLocalLibraryScanMode  = errors.New("invalid local library scan mode")
+	ErrLocalLibraryDisabled           = errors.New("local library is not enabled")
+	ErrLocalLibraryScanUnavailable    = errors.New("local library scanner is not available")
+	ErrLocalLibraryScrapeDisabled     = errors.New("local library metadata enhancement is not enabled")
+	ErrLocalLibraryScanRunning        = errors.New("local library scan is already running")
+	ErrLocalLibraryScrapeRunning      = errors.New("local library scrape is already running")
+	ErrInvalidLocalLibraryScanMode    = errors.New("invalid local library scan mode")
 	ErrInvalidLocalLibraryScrapeScope = errors.New("invalid local library scrape scope")
 )
 
@@ -28,16 +28,16 @@ const (
 )
 
 type LocalLibraryOverview struct {
-	Enabled        bool                           `json:"enabled"`
-	DisabledReason string                         `json:"disabled_reason,omitempty"`
-	Roots          []string                       `json:"roots"`
-	ScanMode       models.LibraryScanMode         `json:"scan_mode"`
-	CleanupPolicy  models.CleanupPolicy           `json:"cleanup_policy"`
-	AppleMusic     LocalLibraryAppleMusicOverview `json:"apple_music"`
-	Stats          LocalLibraryOverviewStats      `json:"stats"`
-	ScanRunning    bool                           `json:"scan_running"`
-	RecentScanTasks []*models.MediaScanTask       `json:"recent_scan_tasks"`
-	ScrapeStatus   LocalLibraryScrapeStatus       `json:"scrape_status"`
+	Enabled         bool                           `json:"enabled"`
+	DisabledReason  string                         `json:"disabled_reason,omitempty"`
+	Roots           []string                       `json:"roots"`
+	ScanMode        models.LibraryScanMode         `json:"scan_mode"`
+	CleanupPolicy   models.CleanupPolicy           `json:"cleanup_policy"`
+	AppleMusic      LocalLibraryAppleMusicOverview `json:"apple_music"`
+	Stats           LocalLibraryOverviewStats      `json:"stats"`
+	ScanRunning     bool                           `json:"scan_running"`
+	RecentScanTasks []*models.MediaScanTask        `json:"recent_scan_tasks"`
+	ScrapeStatus    LocalLibraryScrapeStatus       `json:"scrape_status"`
 }
 
 type LocalLibraryAppleMusicOverview struct {
@@ -103,9 +103,9 @@ func (s *LocalLibraryAdminService) GetOverview(ctx context.Context, recentLimit 
 	}
 
 	overview := &LocalLibraryOverview{
-		Enabled: s.config.Enabled,
-		Roots:   append([]string(nil), s.config.Roots...),
-		ScanMode: s.config.ScanMode,
+		Enabled:       s.config.Enabled,
+		Roots:         append([]string(nil), s.config.Roots...),
+		ScanMode:      s.config.ScanMode,
 		CleanupPolicy: s.config.CleanupPolicy,
 		AppleMusic: LocalLibraryAppleMusicOverview{
 			MetadataEnhancement: s.config.AppleMusic.MetadataEnhancement,

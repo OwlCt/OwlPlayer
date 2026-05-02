@@ -5,7 +5,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	"main/models"
+	"github.com/OwlCt/OwlPlayer/models"
 	"time"
 )
 

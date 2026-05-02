@@ -3,7 +3,7 @@ package services
 import (
 	"context"
 	"fmt"
-	"main/models"
+	"github.com/OwlCt/OwlPlayer/models"
 	"time"
 
 	"github.com/lib/pq"

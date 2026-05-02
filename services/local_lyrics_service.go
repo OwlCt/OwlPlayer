@@ -3,8 +3,8 @@ package services
 import (
 	"context"
 	"fmt"
-	"main/models"
-	"main/utils/lyrics"
+	"github.com/OwlCt/OwlPlayer/models"
+	"github.com/OwlCt/OwlPlayer/utils/lyrics"
 	"os"
 	"strconv"
 	"strings"

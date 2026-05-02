@@ -10,8 +10,8 @@ import (
 	"testing"
 	"time"
 
-	"main/models"
-	"main/utils/ampapi"
+	"github.com/OwlCt/OwlPlayer/models"
+	"github.com/OwlCt/OwlPlayer/utils/ampapi"
 )
 
 func TestLocalMediaScannerRunFullScanIndexesSupportedFilesAndPersistsCompletedTask(t *testing.T) {

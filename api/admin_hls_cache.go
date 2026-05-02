@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"main/services"
+	"github.com/OwlCt/OwlPlayer/services"
 )
 
 // AdminHLSCacheHandler handles HLS cache management API endpoints
@@ -44,7 +44,7 @@ type HLSCacheSettingsResponse struct {
 
 // HLSCacheStatsResponse represents the response for HLS cache statistics
 type HLSCacheStatsResponse struct {
-	Success bool                   `json:"success"`
+	Success bool                    `json:"success"`
 	Stats   *services.HLSCacheStats `json:"stats"`
 }
 
@@ -53,7 +53,6 @@ type HLSCacheClearResponse struct {
 	Success bool   `json:"success"`
 	Message string `json:"message"`
 }
-
 
 // =============================================================================
 // Handlers

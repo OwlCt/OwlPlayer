@@ -3,8 +3,8 @@ package services
 import (
 	"context"
 	"fmt"
+	"github.com/OwlCt/OwlPlayer/models"
 	"log"
-	"main/models"
 	"sync"
 	"time"
 )

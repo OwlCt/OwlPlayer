@@ -3,7 +3,7 @@ package services
 import (
 	"context"
 	"fmt"
-	"main/models"
+	"github.com/OwlCt/OwlPlayer/models"
 	"os"
 	"path/filepath"
 	"strings"

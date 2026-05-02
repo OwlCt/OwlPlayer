@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"main/models"
-	"main/services"
+	"github.com/OwlCt/OwlPlayer/models"
+	"github.com/OwlCt/OwlPlayer/services"
 )
 
 // AdminSyncHandler handles admin sync-related API endpoints

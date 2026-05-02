@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"main/models"
+	"github.com/OwlCt/OwlPlayer/models"
 )
 
 func TestParseLocalTagsReadsMP4MetadataArtworkAndLyrics(t *testing.T) {

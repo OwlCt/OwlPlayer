@@ -4,7 +4,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"main/models"
+	"github.com/OwlCt/OwlPlayer/models"
 )
 
 type localSourceQualityClass string

@@ -5,10 +5,10 @@ import (
 	"log"
 	"time"
 
-	"main/api"
-	"main/models"
-	"main/services"
-	"main/utils/ampapi"
+	"github.com/OwlCt/OwlPlayer/api"
+	"github.com/OwlCt/OwlPlayer/models"
+	"github.com/OwlCt/OwlPlayer/services"
+	"github.com/OwlCt/OwlPlayer/utils/ampapi"
 )
 
 func main() {

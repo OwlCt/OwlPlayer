@@ -5,8 +5,8 @@ import (
 	"errors"
 	"net/http"
 
-	"main/models"
-	"main/services"
+	"github.com/OwlCt/OwlPlayer/models"
+	"github.com/OwlCt/OwlPlayer/services"
 )
 
 type CreateAdminUserRequest struct {

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"main/services"
+	"github.com/OwlCt/OwlPlayer/services"
 )
 
 type AdminRuntimeSettingsHandler struct {
@@ -28,7 +28,7 @@ func (h *AdminRuntimeSettingsHandler) RegisterRoutes(mux *http.ServeMux) {
 }
 
 type AdminRuntimeSettingsResponse struct {
-	Success  bool                            `json:"success"`
+	Success  bool                              `json:"success"`
 	Settings *services.RuntimeSettingsEnvelope `json:"settings"`
 }
 
@@ -79,4 +79,3 @@ func (h *AdminRuntimeSettingsHandler) handleUpdateRuntimeSettings(w http.Respons
 		Settings: settings,
 	})
 }
-

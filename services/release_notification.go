@@ -4,7 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	"main/models"
+	"github.com/OwlCt/OwlPlayer/models"
 	"time"
 )
 
@@ -57,7 +57,6 @@ func (s *ReleaseNotificationService) CreateNotifications(ctx context.Context, ar
 
 	return nil
 }
-
 
 // GetUserNotifications retrieves notifications for a user with optional filtering
 func (s *ReleaseNotificationService) GetUserNotifications(ctx context.Context, userID string, filter models.NotificationFilter) ([]*models.ReleaseNotification, error) {

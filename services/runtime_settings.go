@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"main/models"
+	"github.com/OwlCt/OwlPlayer/models"
 )
 
 type SettingSource string
@@ -32,51 +32,51 @@ type SettingGroupStatus struct {
 }
 
 type LocalMediaRuntimeSettings struct {
-	Enabled       bool                  `json:"enabled"`
-	Roots         []string              `json:"roots"`
+	Enabled       bool                   `json:"enabled"`
+	Roots         []string               `json:"roots"`
 	ScanMode      models.LibraryScanMode `json:"scan_mode"`
 	CleanupPolicy models.CleanupPolicy   `json:"cleanup_policy"`
 }
 
 type AppleMusicRuntimeSettings struct {
-	Storefront           string  `json:"storefront"`
-	Language             string  `json:"language"`
-	MediaUserToken       string  `json:"media_user_token"`
-	MetadataEnhancement  bool    `json:"metadata_enhancement"`
-	LyricsEnhancement    bool    `json:"lyrics_enhancement"`
-	MatchThreshold       float64 `json:"match_threshold"`
+	Storefront          string  `json:"storefront"`
+	Language            string  `json:"language"`
+	MediaUserToken      string  `json:"media_user_token"`
+	MetadataEnhancement bool    `json:"metadata_enhancement"`
+	LyricsEnhancement   bool    `json:"lyrics_enhancement"`
+	MatchThreshold      float64 `json:"match_threshold"`
 }
 
 type RuntimeSettingsMetadata struct {
-	Email          SettingGroupStatus `json:"email"`
-	LocalMedia     SettingGroupStatus `json:"local_media"`
-	AppleMusic     SettingGroupStatus `json:"apple_music"`
-	RestartRequired bool              `json:"restart_required"`
+	Email           SettingGroupStatus `json:"email"`
+	LocalMedia      SettingGroupStatus `json:"local_media"`
+	AppleMusic      SettingGroupStatus `json:"apple_music"`
+	RestartRequired bool               `json:"restart_required"`
 }
 
 type RuntimeSettingsEnvelope struct {
-	Email      EmailSettings              `json:"email"`
-	LocalMedia LocalMediaRuntimeSettings  `json:"local_media"`
-	AppleMusic AppleMusicRuntimeSettings  `json:"apple_music"`
-	Metadata   RuntimeSettingsMetadata    `json:"metadata"`
+	Email      EmailSettings             `json:"email"`
+	LocalMedia LocalMediaRuntimeSettings `json:"local_media"`
+	AppleMusic AppleMusicRuntimeSettings `json:"apple_music"`
+	Metadata   RuntimeSettingsMetadata   `json:"metadata"`
 }
 
 const (
-	keyRuntimeCompleted          = "setup.runtime_completed"
-	keyPendingRestart            = "setup.pending_restart"
-	keyEmailSource               = "setup.source.email"
-	keyLocalMediaSource          = "setup.source.local_media"
-	keyAppleMusicSource          = "setup.source.apple_music"
-	keyLocalMediaEnabled         = "runtime.local_media.enabled"
-	keyLocalMediaRoots           = "runtime.local_media.roots"
-	keyLocalMediaScanMode        = "runtime.local_media.scan_mode"
-	keyLocalMediaCleanupPolicy   = "runtime.local_media.cleanup_policy"
-	keyAppleStorefront           = "runtime.apple_music.storefront"
-	keyAppleLanguage             = "runtime.apple_music.language"
-	keyAppleMediaUserToken       = "runtime.apple_music.media_user_token"
-	keyAppleMetadataEnhancement  = "runtime.apple_music.metadata_enhancement"
-	keyAppleLyricsEnhancement    = "runtime.apple_music.lyrics_enhancement"
-	keyAppleMatchThreshold       = "runtime.apple_music.match_threshold"
+	keyRuntimeCompleted         = "setup.runtime_completed"
+	keyPendingRestart           = "setup.pending_restart"
+	keyEmailSource              = "setup.source.email"
+	keyLocalMediaSource         = "setup.source.local_media"
+	keyAppleMusicSource         = "setup.source.apple_music"
+	keyLocalMediaEnabled        = "runtime.local_media.enabled"
+	keyLocalMediaRoots          = "runtime.local_media.roots"
+	keyLocalMediaScanMode       = "runtime.local_media.scan_mode"
+	keyLocalMediaCleanupPolicy  = "runtime.local_media.cleanup_policy"
+	keyAppleStorefront          = "runtime.apple_music.storefront"
+	keyAppleLanguage            = "runtime.apple_music.language"
+	keyAppleMediaUserToken      = "runtime.apple_music.media_user_token"
+	keyAppleMetadataEnhancement = "runtime.apple_music.metadata_enhancement"
+	keyAppleLyricsEnhancement   = "runtime.apple_music.lyrics_enhancement"
+	keyAppleMatchThreshold      = "runtime.apple_music.match_threshold"
 )
 
 func DefaultRuntimeSettings() *RuntimeSettingsEnvelope {

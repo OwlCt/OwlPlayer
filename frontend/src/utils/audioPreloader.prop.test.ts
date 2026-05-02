@@ -278,7 +278,7 @@ describe('AudioPreloader Cancellation Property Tests', () => {
           
           // 应该只发起一次 fetch（对于这个特定的 songId）
           const callsForThisSong = mockFetch.mock.calls.filter(
-            call => call[0] === `/api/stream/${songId}`
+            call => String(call[0]).startsWith(`/api/stream/${songId}`)
           );
           expect(callsForThisSong.length).toBe(1);
           

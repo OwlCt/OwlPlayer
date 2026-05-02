@@ -5,7 +5,7 @@ import (
 	"encoding/base64"
 	"encoding/binary"
 	"fmt"
-	"main/models"
+	"github.com/OwlCt/OwlPlayer/models"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -665,14 +665,14 @@ func parseMP3FrameHeader(data []byte) (mp3FrameHeader, bool) {
 	frameSize := 0
 	switch layer {
 	case 1:
-		frameSize = ((12 * bitrate) / sampleRate + padding) * 4
+		frameSize = ((12*bitrate)/sampleRate + padding) * 4
 	case 2:
-		frameSize = (144 * bitrate) / sampleRate + padding
+		frameSize = (144*bitrate)/sampleRate + padding
 	case 3:
 		if version == 1 {
-			frameSize = (144 * bitrate) / sampleRate + padding
+			frameSize = (144*bitrate)/sampleRate + padding
 		} else {
-			frameSize = (72 * bitrate) / sampleRate + padding
+			frameSize = (72*bitrate)/sampleRate + padding
 		}
 	}
 	if frameSize <= 0 {

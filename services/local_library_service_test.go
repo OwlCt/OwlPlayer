@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"main/models"
+	"github.com/OwlCt/OwlPlayer/models"
 )
 
 func TestBuildLocalSuggestionContentsRespectsOrderAndLimit(t *testing.T) {

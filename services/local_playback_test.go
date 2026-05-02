@@ -11,7 +11,7 @@ import (
 	"testing"
 	"time"
 
-	"main/models"
+	"github.com/OwlCt/OwlPlayer/models"
 )
 
 type stubLocalPlaybackRepo struct {

@@ -3,7 +3,7 @@ package services
 import (
 	"context"
 
-	"main/models"
+	"github.com/OwlCt/OwlPlayer/models"
 )
 
 type LocalArtistRepository interface {

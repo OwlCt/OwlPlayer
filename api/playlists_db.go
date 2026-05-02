@@ -10,8 +10,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"main/models"
-	"main/services"
+	"github.com/OwlCt/OwlPlayer/models"
+	"github.com/OwlCt/OwlPlayer/services"
 )
 
 // PlaylistsDBHandler handles playlists API endpoints with database storage
@@ -98,12 +98,12 @@ type UploadPlaylistCoverResponse struct {
 // =============================================================================
 
 const (
-	ErrCodePlaylistNotFound       = "PLAYLIST_NOT_FOUND"
-	ErrCodeSongAlreadyInPlaylist  = "SONG_ALREADY_IN_PLAYLIST"
-	ErrCodeSongNotInPlaylist      = "SONG_NOT_IN_PLAYLIST"
-	ErrCodeCoverInvalidFormat     = "COVER_INVALID_FORMAT"
-	ErrCodeCoverTooLarge          = "COVER_TOO_LARGE"
-	ErrCodeCoverServiceNotConfig  = "COVER_SERVICE_NOT_CONFIGURED"
+	ErrCodePlaylistNotFound      = "PLAYLIST_NOT_FOUND"
+	ErrCodeSongAlreadyInPlaylist = "SONG_ALREADY_IN_PLAYLIST"
+	ErrCodeSongNotInPlaylist     = "SONG_NOT_IN_PLAYLIST"
+	ErrCodeCoverInvalidFormat    = "COVER_INVALID_FORMAT"
+	ErrCodeCoverTooLarge         = "COVER_TOO_LARGE"
+	ErrCodeCoverServiceNotConfig = "COVER_SERVICE_NOT_CONFIGURED"
 )
 
 // =============================================================================
@@ -561,7 +561,6 @@ func (h *PlaylistsDBHandler) handleGetSongPlaylists(w http.ResponseWriter, r *ht
 		PlaylistIDs: playlistIDs,
 	})
 }
-
 
 // =============================================================================
 // Playlist Cover Handlers

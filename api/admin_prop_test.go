@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"main/services"
+	"github.com/OwlCt/OwlPlayer/services"
 
 	"github.com/leanovate/gopter"
 	"github.com/leanovate/gopter/gen"

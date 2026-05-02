@@ -1,7 +1,7 @@
 package services
 
 import (
-	"main/models"
+	"github.com/OwlCt/OwlPlayer/models"
 	"reflect"
 	"testing"
 	"time"
@@ -107,7 +107,6 @@ func TestDeduplicateArtistsProperty(t *testing.T) {
 
 	properties.TestingRun(t)
 }
-
 
 // **Feature: artist-release-notifications, Property 2: VIP优先排序正确性**
 // **Validates: Requirements 1.2**
@@ -258,7 +257,6 @@ func genArtistName() gopter.Gen {
 		return s
 	})
 }
-
 
 // **Feature: enhanced-sync-management, Property 7: 同步日志条目完整性**
 // **Validates: Requirements 4.2**

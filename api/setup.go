@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"main/services"
+	"github.com/OwlCt/OwlPlayer/services"
 )
 
 type SetupHandler struct {
@@ -45,12 +45,12 @@ type SetupDatabaseResponse struct {
 }
 
 type SetupRuntimeSettingsRequest struct {
-	BootstrapToken string                           `json:"bootstrap_token"`
+	BootstrapToken string                            `json:"bootstrap_token"`
 	Settings       *services.RuntimeSettingsEnvelope `json:"settings"`
 }
 
 type SetupRuntimeSettingsResponse struct {
-	Success  bool                            `json:"success"`
+	Success  bool                              `json:"success"`
 	Settings *services.RuntimeSettingsEnvelope `json:"settings"`
 }
 
@@ -167,4 +167,3 @@ func (h *SetupHandler) handleSaveRuntimeSettings(w http.ResponseWriter, r *http.
 		Settings: settings,
 	})
 }
-

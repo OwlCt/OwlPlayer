@@ -4,7 +4,11 @@
  * 导出所有类型和工具函数
  */
 
-import { detectPlatform, type PlatformInfo } from "./detection";
+import {
+  clearPlatformCache,
+  detectPlatform,
+  type PlatformInfo,
+} from "./detection";
 import { iOSAudioSession } from "./ios";
 import { AndroidAudioSession } from "./android";
 import { DesktopAudioSession } from "./desktop";
@@ -13,9 +17,6 @@ import { defaultAudioSessionConfig } from "./types";
 
 /** 单例实例 */
 let instance: IAudioSessionManager | null = null;
-
-/** 缓存的平台信息 */
-let cachedPlatformInfo: PlatformInfo | null = null;
 
 const HLS_PREFERENCE_KEY = "owl-hls-playback-enabled";
 
@@ -41,7 +42,6 @@ export function getAudioSessionManager(
 
   // 检测平台
   const platformInfo = detectPlatform();
-  cachedPlatformInfo = platformInfo;
 
   // 合并配置
   const mergedConfig: AudioSessionConfig = {
@@ -78,9 +78,6 @@ export function getAudioSessionManager(
  * 否则执行新的检测
  */
 export function getPlatformInfo(): PlatformInfo {
-  if (cachedPlatformInfo) {
-    return cachedPlatformInfo;
-  }
   return detectPlatform();
 }
 
@@ -100,7 +97,7 @@ export function resetAudioSessionManager(): void {
     instance.cleanup();
     instance = null;
   }
-  cachedPlatformInfo = null;
+  clearPlatformCache();
 }
 
 export function getHlsPlaybackPreference(): boolean {
@@ -138,11 +135,11 @@ export { defaultAudioSessionConfig } from "./types";
 
 // 导出平台检测工具
 export {
+  clearPlatformCache,
   detectPlatform,
   isIOSPWA,
   isAndroidPWA,
   isMobileDevice,
-  clearPlatformCache,
   type PlatformInfo,
   type BrowserType,
 } from "./detection";

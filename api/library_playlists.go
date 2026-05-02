@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strings"
 
-	"main/services"
+	"github.com/OwlCt/OwlPlayer/services"
 )
 
 // LibraryPlaylistsHandler handles library playlists API endpoints

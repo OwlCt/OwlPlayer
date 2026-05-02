@@ -11,8 +11,8 @@ import (
 	"strconv"
 	"strings"
 
-	"main/models"
-	"main/services"
+	"github.com/OwlCt/OwlPlayer/models"
+	"github.com/OwlCt/OwlPlayer/services"
 )
 
 // ServerMux is an alias for http.ServeMux to allow external route registration

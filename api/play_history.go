@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"main/models"
-	"main/services"
+	"github.com/OwlCt/OwlPlayer/models"
+	"github.com/OwlCt/OwlPlayer/services"
 )
 
 // PlayHistoryHandler handles play history API endpoints
@@ -40,9 +40,9 @@ func (h *PlayHistoryHandler) RegisterRoutes(mux *http.ServeMux) {
 
 // GetPlayHistoryResponse represents the response for getting play history
 type GetPlayHistoryResponse struct {
-	Success bool                       `json:"success"`
-	Items   []*models.PlayHistoryItem  `json:"items"`
-	Count   int                        `json:"count"`
+	Success bool                      `json:"success"`
+	Items   []*models.PlayHistoryItem `json:"items"`
+	Count   int                       `json:"count"`
 }
 
 // RecordPlayHistoryResponse represents the response for recording a play
@@ -52,7 +52,6 @@ type RecordPlayHistoryResponse struct {
 	Message string              `json:"message"`
 }
 
-
 // ClearPlayHistoryResponse represents the response for clearing history
 type ClearPlayHistoryResponse struct {
 	Success bool   `json:"success"`
@@ -61,16 +60,16 @@ type ClearPlayHistoryResponse struct {
 
 // GetTopArtistsResponse represents the response for getting top artists
 type GetTopArtistsResponse struct {
-	Success bool                     `json:"success"`
-	Items   []*models.TopArtistItem  `json:"items"`
-	Count   int                      `json:"count"`
+	Success bool                    `json:"success"`
+	Items   []*models.TopArtistItem `json:"items"`
+	Count   int                     `json:"count"`
 }
 
 // GetTopTracksResponse represents the response for getting top tracks
 type GetTopTracksResponse struct {
-	Success bool                    `json:"success"`
-	Items   []*models.TopTrackItem  `json:"items"`
-	Count   int                     `json:"count"`
+	Success bool                   `json:"success"`
+	Items   []*models.TopTrackItem `json:"items"`
+	Count   int                    `json:"count"`
 }
 
 // =============================================================================
@@ -137,7 +136,6 @@ func (h *PlayHistoryHandler) handleGetPlayHistory(w http.ResponseWriter, r *http
 		Count:   len(items),
 	})
 }
-
 
 // handleRecordPlay records a play event
 // POST /api/play-history
@@ -215,7 +213,6 @@ func (h *PlayHistoryHandler) handleClearHistory(w http.ResponseWriter, r *http.R
 		Message: "Play history cleared",
 	})
 }
-
 
 // handleGetTopArtists returns top artists for the current month
 // GET /api/play-history/top-artists?limit=4

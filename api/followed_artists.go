@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"strings"
 
-	"main/models"
-	"main/services"
+	"github.com/OwlCt/OwlPlayer/models"
+	"github.com/OwlCt/OwlPlayer/services"
 )
 
 // FollowedArtistsHandler handles followed artists API endpoints

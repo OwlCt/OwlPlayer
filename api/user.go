@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"main/services"
+	"github.com/OwlCt/OwlPlayer/services"
 )
 
 // UserHandler handles user settings API endpoints

@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"main/models"
-	"main/services"
+	"github.com/OwlCt/OwlPlayer/models"
+	"github.com/OwlCt/OwlPlayer/services"
 )
 
 func parseInt(s string) (int, error) {

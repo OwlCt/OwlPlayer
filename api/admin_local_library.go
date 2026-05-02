@@ -7,8 +7,8 @@ import (
 	"strconv"
 	"strings"
 
-	"main/models"
-	"main/services"
+	"github.com/OwlCt/OwlPlayer/models"
+	"github.com/OwlCt/OwlPlayer/services"
 )
 
 type AdminLocalLibraryHandler struct {

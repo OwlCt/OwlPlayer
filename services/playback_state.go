@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"main/models"
+	"github.com/OwlCt/OwlPlayer/models"
 )
 
 // Playback state service errors

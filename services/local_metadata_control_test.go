@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"main/models"
+	"github.com/OwlCt/OwlPlayer/models"
 )
 
 func TestResolveArtistPresentationPrefersManualOverride(t *testing.T) {

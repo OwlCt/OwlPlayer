@@ -4,7 +4,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"main/models"
+	"github.com/OwlCt/OwlPlayer/models"
 )
 
 func TestValidateLocalMediaConfigDisabledAppliesDefaults(t *testing.T) {
