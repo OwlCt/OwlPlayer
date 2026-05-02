@@ -1,0 +1,24 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "noUnusedLocals": false,
+    "noUnusedParameters": false
+  },
+  "include": [
+    "src/api/**/*.ts",
+    "src/hooks/**/*.ts",
+    "src/services/**/*.ts",
+    "src/store/**/*.ts",
+    "src/utils/**/*.ts",
+    "src/components/settings/**/*.ts",
+    "src/components/settings/**/*.tsx",
+    "src/types/**/*.d.ts"
+  ],
+  "exclude": [
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx",
+    "src/**/*.prop.test.ts",
+    "src/**/*.prop.test.tsx"
+  ],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}

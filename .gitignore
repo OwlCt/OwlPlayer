@@ -1,0 +1,61 @@
+# Build artifacts and executables
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Go build cache
+/vendor/
+*.mod.sum.bak
+
+# Cache and data directories
+.cache/
+.data/
+.kiro/
+.gocache/
+.gomodcache/
+
+# Configuration with sensitive data
+config.yaml
+.env
+
+# Frontend dependencies
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/.env
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS files
+Thumbs.db
+desktop.ini
+
+# Log files
+*.log
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+.codex-tmp/
+
+# AI assistant files
+CLAUDE.md
+AGENTS.md
+.claude/
+.codex/
+.codex-tmp/
+.kiro/
+openspec/
+*.zip

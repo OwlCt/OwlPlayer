@@ -1,0 +1,41 @@
+# Build artifacts
+.cache/
+.data/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# Development files
+.git/
+.gitignore
+.vscode/
+.idea/
+*.log
+.env
+.env.*
+
+# Sensitive config (use config.docker.yaml instead)
+config.yaml
+
+# Go build artifacts
+*.exe
+streaming-server
+*.test
+*.out
+
+# Test files - Go
+*_test.go
+*_prop_test.go
+
+# Test files - Frontend
+frontend/src/**/*.test.ts
+frontend/src/**/*.test.tsx
+frontend/src/**/*.prop.test.tsx
+frontend/src/**/*.spec.ts
+frontend/src/**/*.spec.tsx
+
+# Test configuration
+vitest.config.ts
+jest.config.js

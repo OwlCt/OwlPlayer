@@ -1,0 +1,18 @@
+# Docker bootstrap configuration template
+# Runtime-manageable settings are configured from the web setup flow and stored
+# in the database-backed system settings table after the service starts.
+
+database:
+  host: "${POSTGRES_HOST}"
+  port: ${POSTGRES_PORT}
+  user: "${POSTGRES_USER}"
+  password: "${POSTGRES_PASSWORD}"
+  dbname: "${POSTGRES_DB}"
+  sslmode: "${POSTGRES_SSLMODE}"
+  max-open-conns: 25
+  max-idle-conns: 5
+
+jwt:
+  secret-key: "${JWT_SECRET}"
+  access-token-expiry: 15
+  refresh-token-expiry: 168

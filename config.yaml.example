@@ -1,0 +1,18 @@
+# OwlPlayer bootstrap configuration example
+# Runtime-manageable settings such as local media roots, Apple Music enhancement,
+# and SMTP are configured from the web setup flow after the service starts.
+
+database:
+  host: "127.0.0.1"
+  port: 5432
+  user: "postgres"
+  password: ""
+  dbname: "owlplayer"
+  sslmode: "disable"
+  max-open-conns: 25
+  max-idle-conns: 5
+
+jwt:
+  secret-key: "replace-this-secret"
+  access-token-expiry: 15
+  refresh-token-expiry: 168

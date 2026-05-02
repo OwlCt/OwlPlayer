@@ -1,0 +1,708 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Disable text selection globally for app-like experience */
+body {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* Allow text selection in specific elements where needed */
+input, textarea, [contenteditable="true"] {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* Utility class to enable selection when needed */
+.select-text {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+body {
+  font-family: 'Circular', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  background-color: #121212;
+  color: #ffffff;
+  overflow: hidden;
+}
+
+/* Spotify-style scrollbar - auto-hide overlay */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 6px;
+  border: 3px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+  border: 3px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: rgba(255, 255, 255, 0.6);
+  border: 3px solid transparent;
+  background-clip: padding-box;
+}
+
+/* Hide scrollbar buttons (arrows) */
+::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Overlay scrollbar - floats over content */
+.overlay-scrollbar {
+  /* Use overlay so scrollbar doesn't take space, content extends underneath */
+  overflow-y: overlay;
+  overflow-x: hidden;
+  position: relative;
+  --scrollbar-thumb-color: rgba(255, 255, 255, 0.3);
+  --scrollbar-thumb-hover-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Fallback for browsers without overlay support */
+@supports not (overflow-y: overlay) {
+  .overlay-scrollbar {
+    overflow-y: auto;
+  }
+}
+
+.overlay-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.overlay-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.overlay-scrollbar::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 4px;
+}
+
+/* Show scrollbar thumb on hover */
+.overlay-scrollbar:hover::-webkit-scrollbar-thumb,
+.overlay-scrollbar.scrollbar-visible::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb-color);
+}
+
+.overlay-scrollbar:hover::-webkit-scrollbar-thumb:hover,
+.overlay-scrollbar.scrollbar-visible::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover-color);
+}
+
+/* Firefox */
+@supports (scrollbar-width: thin) {
+  .overlay-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+  }
+  
+  .overlay-scrollbar:hover,
+  .overlay-scrollbar.scrollbar-visible {
+    scrollbar-color: var(--scrollbar-thumb-color) transparent;
+  }
+}
+
+/* Range input styling */
+input[type="range"] {
+  -webkit-appearance: none;
+  background: transparent;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+  margin-top: -4px;
+  opacity: 0; 
+  transition: opacity 0.2s;
+}
+
+input[type="range"]:hover::-webkit-slider-thumb {
+  opacity: 1;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 4px;
+  background: #535353;
+  border-radius: 2px;
+}
+
+input[type="range"]:hover::-webkit-slider-runnable-track {
+  background: #1DB954;
+}
+
+/* Utilities */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Hide scrollbar on mobile devices */
+@media (max-width: 768px), (pointer: coarse) {
+  /* Hide all scrollbars on mobile */
+  ::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+  
+  * {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
+  /* Ensure smooth scrolling on touch devices */
+  .overlay-scrollbar,
+  [class*="overflow-"] {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+.mask-gradient {
+  mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+}
+
+/* KTV Lyrics Fill Effect - 双层文字叠加方案 */
+/* 使用 width + overflow:hidden + transition 实现渐进填充 */
+
+/* Library Fullscreen Expand Animation */
+/* 展开：从左边界向右展开 + 淡入 */
+@keyframes expandLibraryEnter {
+  0% {
+    opacity: 0;
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+/* 收起：从右边界向左收回 + 淡出 */
+@keyframes expandLibraryExit {
+  0% {
+    opacity: 1;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  }
+}
+
+.library-expand-enter {
+  animation: expandLibraryEnter 300ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.library-expand-exit {
+  animation: expandLibraryExit 250ms cubic-bezier(0.4, 0, 0.6, 1) forwards;
+}
+
+/* Spotify-style Track List Grid */
+/* Container for track list - enables container queries */
+.track-list-container {
+  container-type: inline-size;
+  container-name: tracklist;
+}
+
+.track-list-grid {
+  display: grid;
+  grid-template-columns: 
+    [index] 48px 
+    [title] minmax(180px, 4fr) 
+    [album] minmax(120px, 3fr) 
+    [date] minmax(100px, 1.2fr) 
+    [duration] 100px;
+  gap: 16px;
+  padding: 0 16px;
+  align-items: center;
+}
+
+/* Hide date column for Apple Music playlists */
+.track-list-grid.no-date {
+  grid-template-columns: 
+    [index] 48px 
+    [title] minmax(180px, 4fr) 
+    [album] minmax(120px, 3fr) 
+    [duration] 100px;
+}
+
+.track-list-grid.no-date .col-date {
+  display: none;
+}
+
+/* Container query: Hide album and date columns when container is narrow */
+/* This accounts for sidebar + now playing panel taking space */
+@container tracklist (max-width: 600px) {
+  .track-list-grid {
+    grid-template-columns: 
+      [index] 40px 
+      [title] 1fr 
+      [duration] 80px;
+  }
+  .track-list-grid .col-album,
+  .track-list-grid .col-date {
+    display: none;
+  }
+}
+
+/* Container query: Hide date column on medium width */
+@container tracklist (min-width: 601px) and (max-width: 850px) {
+  .track-list-grid {
+    grid-template-columns: 
+      [index] 48px 
+      [title] minmax(180px, 4fr) 
+      [album] minmax(120px, 3fr) 
+      [duration] 100px;
+  }
+  .track-list-grid .col-date {
+    display: none;
+  }
+}
+
+/* Fallback for browsers without container query support */
+@supports not (container-type: inline-size) {
+  /* Use viewport-based media queries as fallback */
+  /* Account for max sidebar (420px) + max now playing (480px) = 900px panels */
+  @media (max-width: 1100px) {
+    .track-list-grid {
+      grid-template-columns: 
+        [index] 48px 
+        [title] minmax(180px, 4fr) 
+        [album] minmax(120px, 3fr) 
+        [duration] 100px;
+    }
+    .track-list-grid .col-date {
+      display: none;
+    }
+  }
+  
+  @media (max-width: 900px) {
+    .track-list-grid {
+      grid-template-columns: 
+        [index] 40px 
+        [title] 1fr 
+        [duration] 80px;
+    }
+    .track-list-grid .col-album,
+    .track-list-grid .col-date {
+      display: none;
+    }
+  }
+}
+
+.track-row {
+  height: 56px;
+  border-radius: 4px;
+  transition: background-color 0.15s ease;
+}
+
+.track-row:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.track-row.selected {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.track-row.playing {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Hover state for links in track list */
+.track-list-grid a:hover {
+  text-decoration: underline;
+  color: #fff;
+}
+
+/* Equalizer Animation - 律动动画 */
+.equalizer {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 14px;
+  width: 14px;
+}
+
+.equalizer-bar {
+  width: 3px;
+  background: #1DB954;
+  border-radius: 1px;
+}
+
+/* Mobile Equalizer - 3 bars, thinner, no border-radius */
+.equalizer-mobile {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 14px;
+  width: 12px;
+}
+
+.equalizer-mobile .equalizer-bar {
+  width: 2px;
+  border-radius: 0;
+}
+
+.equalizer-bar:nth-child(1) {
+  animation: equalize1 1s ease-in-out infinite;
+}
+
+.equalizer-bar:nth-child(2) {
+  animation: equalize2 0.75s ease-in-out infinite;
+  animation-delay: 0.19s;
+}
+
+.equalizer-bar:nth-child(3) {
+  animation: equalize3 1.125s ease-in-out infinite;
+  animation-delay: 0.06s;
+}
+
+.equalizer-bar:nth-child(4) {
+  animation: equalize4 0.875s ease-in-out infinite;
+  animation-delay: 0.31s;
+}
+
+@keyframes equalize1 {
+  0%, 100% { height: 3px; }
+  25% { height: 10px; }
+  50% { height: 6px; }
+  75% { height: 14px; }
+}
+
+@keyframes equalize2 {
+  0%, 100% { height: 8px; }
+  30% { height: 14px; }
+  60% { height: 4px; }
+  80% { height: 11px; }
+}
+
+@keyframes equalize3 {
+  0%, 100% { height: 5px; }
+  20% { height: 12px; }
+  45% { height: 7px; }
+  70% { height: 14px; }
+  90% { height: 3px; }
+}
+
+@keyframes equalize4 {
+  0%, 100% { height: 6px; }
+  35% { height: 3px; }
+  55% { height: 13px; }
+  85% { height: 8px; }
+}
+
+/* Blink highlight animation - for search suggestion navigation */
+@keyframes blinkHighlight {
+  0%, 100% { background-color: rgba(255, 255, 255, 0.1); }
+  50% { background-color: transparent; }
+}
+
+.animate-blink-highlight {
+  animation: blinkHighlight 1s ease-in-out 3;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* OverlayScrollbars overrides */
+.os-theme-light {
+  --os-track-bg: transparent;
+  --os-track-bg-hover: transparent;
+  --os-track-bg-active: transparent;
+  --os-handle-bg: rgba(255, 255, 255, 0.3);
+  --os-handle-bg-hover: rgba(255, 255, 255, 0.5);
+  --os-handle-bg-active: rgba(255, 255, 255, 0.6);
+}
+
+.os-scrollbar {
+  padding: 2px;
+}
+
+.os-scrollbar-track {
+  background: transparent !important;
+}
+
+.os-scrollbar-handle {
+  border-radius: 4px;
+}
+
+
+/* ============================================
+   Safe Area CSS Utilities for PWA/Mobile
+   Handles notched devices (iPhone X+, etc.)
+   Supports: iPhone X/XS/11/12/13/14/15 notch,
+   Dynamic Island, Android punch-hole cameras
+   ============================================ */
+
+/* Safe area padding utilities */
+.safe-area-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.safe-area-left {
+  padding-left: env(safe-area-inset-left);
+}
+
+.safe-area-right {
+  padding-right: env(safe-area-inset-right);
+}
+
+/* Combined safe area utilities */
+.safe-area-x {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+.safe-area-y {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.safe-area-all {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* Margin variants for safe areas */
+.safe-area-margin-top {
+  margin-top: env(safe-area-inset-top);
+}
+
+.safe-area-margin-bottom {
+  margin-bottom: env(safe-area-inset-bottom);
+}
+
+/* Min-height utilities accounting for safe areas */
+.min-h-screen-safe {
+  min-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+}
+
+.h-screen-safe {
+  height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+}
+
+/* ============================================
+   Notch/Camera Cutout Avoidance Utilities
+   For fullscreen mode on notched devices
+   ============================================ */
+
+/* Top safe area with minimum padding for camera avoidance */
+.safe-area-top-camera {
+  /* Use max() to ensure at least 20px padding even on non-notched devices in fullscreen */
+  padding-top: max(env(safe-area-inset-top), 0px);
+}
+
+/* Fullscreen mode - ensure content doesn't overlap with camera/notch */
+.fullscreen-safe-top {
+  padding-top: env(safe-area-inset-top);
+  /* Add background extension behind notch area */
+  background-clip: padding-box;
+}
+
+/* Background fill for notch area - use on containers that need solid bg behind notch */
+.notch-bg-fill::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: env(safe-area-inset-top);
+  background: inherit;
+  z-index: 1;
+}
+
+/* PWA standalone mode specific styles */
+@media all and (display-mode: standalone) {
+  .standalone\:safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
+  
+  .standalone\:safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  .standalone\:bg-black {
+    background-color: #000000;
+  }
+  
+  /* Fullscreen PWA - ensure camera avoidance */
+  .standalone\:fullscreen-safe {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
+/* Fullscreen API mode - when using requestFullscreen() */
+@media all and (display-mode: fullscreen) {
+  .fullscreen\:safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
+  
+  .fullscreen\:safe-area-all {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
+/* iOS Safari specific fixes */
+@supports (-webkit-touch-callout: none) {
+  /* Prevent rubber-band scrolling on iOS */
+  .ios-no-bounce {
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Fix for 100vh on iOS Safari */
+  .h-screen-ios {
+    height: -webkit-fill-available;
+  }
+  
+  .min-h-screen-ios {
+    min-height: -webkit-fill-available;
+  }
+  
+  /* iOS Dynamic Island support (iPhone 14 Pro+) */
+  .dynamic-island-safe {
+    padding-top: env(safe-area-inset-top);
+  }
+}
+
+/* ============================================
+   Dynamic Viewport Height Fix for PWA/Safari
+   100vh is broken on iOS Safari - use 100dvh
+   Only apply to desktop layout (iPad landscape)
+   ============================================ */
+
+/* Default: use dvh for dynamic viewport (handles browser UI changes) */
+.h-screen-dynamic {
+  height: 100dvh;
+}
+
+/* Fallback for browsers that don't support dvh */
+@supports not (height: 100dvh) {
+  .h-screen-dynamic {
+    height: 100vh;
+    height: -webkit-fill-available;
+  }
+}
+
+/* PWA standalone mode: use vh since there's no browser UI
+   This prevents bottom gap in iPad PWA landscape mode */
+@media (display-mode: standalone) {
+  .h-screen-dynamic {
+    height: 100vh;
+  }
+}
+
+/* Android specific - some devices report safe-area differently */
+@supports (padding-top: env(safe-area-inset-top)) {
+  .android-safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+}
+
+/* Slide down animation for offline indicator */
+@keyframes slideDown {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-down {
+  animation: slideDown 0.3s ease-out forwards;
+}
+
+/* Highlight pulse animation for persistent storage section */
+@keyframes highlightPulse {
+  0%, 100% {
+    background-color: rgba(34, 197, 94, 0.2);
+  }
+  50% {
+    background-color: rgba(34, 197, 94, 0.4);
+  }
+}
+
+.animate-highlight-pulse {
+  animation: highlightPulse 0.5s ease-in-out 4;
+}
+
+@keyframes playerBarQualityMenuEnter {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+.playerbar-quality-menu-enter {
+  animation: playerBarQualityMenuEnter 160ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .playerbar-quality-menu-enter {
+    animation: none;
+  }
+}

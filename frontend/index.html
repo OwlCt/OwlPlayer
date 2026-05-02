@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/OwlPlayer-200x200.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="OwlPlayer" />
+    <meta name="theme-color" content="#1DB954" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" href="/OwlPlayer-200x200.png" />
+    <title>OwlPlayer - Web Player : Music for everyone</title>
+    <style>
+      /* 离线回退页面样式 */
+      #offline-fallback {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #121212;
+        color: white;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        padding: 24px;
+        text-align: center;
+        z-index: 99999;
+      }
+      #offline-fallback.show { display: flex; }
+      #offline-fallback svg { width: 48px; height: 48px; color: #ef4444; }
+      #offline-fallback h2 { font-size: 20px; margin: 0; }
+      #offline-fallback p { color: rgba(255,255,255,0.6); margin: 0; font-size: 14px; }
+      #offline-fallback button {
+        background: #1DB954;
+        color: black;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 24px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        margin-top: 8px;
+      }
+      #offline-fallback button:active { opacity: 0.8; }
+    </style>
+  </head>
+  <body class="bg-spotify-black">
+    <div id="root"></div>
+    <!-- 离线回退页面 -->
+    <div id="offline-fallback">
+      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 12.55a11 11 0 0 1 14.08 0" />
+        <path d="M1.42 9a16 16 0 0 1 21.16 0" />
+        <path d="M8.53 16.11a6 6 0 0 1 6.95 0" />
+        <circle cx="12" cy="20" r="1" fill="currentColor" />
+        <line x1="4" y1="4" x2="20" y2="20" />
+      </svg>
+      <h2>无法连接网络</h2>
+      <p>应用资源未缓存，请连接网络后重试</p>
+      <button onclick="location.reload()">重试</button>
+    </div>
+    <script>
+      // Set accurate viewport height CSS variable immediately
+      // This must run before React renders to prevent layout shift
+      (function() {
+        function setAppHeight() {
+          document.documentElement.style.setProperty('--app-height', window.innerHeight + 'px');
+        }
+        setAppHeight();
+        window.addEventListener('resize', setAppHeight);
+        window.addEventListener('orientationchange', function() {
+          // Delay after orientation change for accurate measurement
+          setTimeout(setAppHeight, 100);
+        });
+        // Re-measure after a short delay in case initial value was wrong
+        setTimeout(setAppHeight, 50);
+        setTimeout(setAppHeight, 200);
+        setTimeout(setAppHeight, 500);
+      })();
+    </script>
+    <script>
+      // 离线检测：如果离线且 React 应用未能加载，显示离线页面
+      (function() {
+        var timeout = setTimeout(function() {
+          // 5秒后如果 root 仍为空，说明应用加载失败
+          var root = document.getElementById('root');
+          if (root && !root.hasChildNodes()) {
+            document.getElementById('offline-fallback').classList.add('show');
+          }
+        }, 5000);
+        
+        // 监听网络恢复，自动刷新
+        window.addEventListener('online', function() {
+          if (document.getElementById('offline-fallback').classList.contains('show')) {
+            location.reload();
+          }
+        });
+        
+        // 如果应用成功加载，清除超时
+        window.addEventListener('load', function() {
+          setTimeout(function() {
+            var root = document.getElementById('root');
+            if (root && root.hasChildNodes()) {
+              clearTimeout(timeout);
+            }
+          }, 100);
+        });
+      })();
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

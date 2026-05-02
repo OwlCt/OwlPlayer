@@ -1,0 +1,54 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: owlplayer-postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-owlplayer}
+      POSTGRES_USER: ${POSTGRES_USER:-owlplayer}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-owlplayer}
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+    restart: unless-stopped
+
+  music-server:
+    build: .
+    container_name: owlplayer-local
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "${OWLPLAYER_PORT:-8080}:8080"
+    volumes:
+      - ${MEDIA_ROOT_HOST:-./music}:/music:ro
+      - owlplayer_config:/app/config
+      - owlplayer_cache:/app/.cache
+      - owlplayer_data:/app/.data
+    environment:
+      CONFIG_PATH: /app/config/config.yaml
+      OWLPLAYER_RENDER_CONFIG: ${OWLPLAYER_RENDER_CONFIG:-0}
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: ${POSTGRES_PORT:-5432}
+      POSTGRES_DB: ${POSTGRES_DB:-owlplayer}
+      POSTGRES_USER: ${POSTGRES_USER:-owlplayer}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-owlplayer}
+      POSTGRES_SSLMODE: ${POSTGRES_SSLMODE:-disable}
+      SETUP_BOOTSTRAP_TOKEN: ${SETUP_BOOTSTRAP_TOKEN:-change-this-setup-token}
+      JWT_SECRET: ${JWT_SECRET:-change-this-secret-in-production}
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8080/"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 40s
+    restart: unless-stopped
+
+volumes:
+  owlplayer_config:
+  owlplayer_cache:
+  owlplayer_data:
