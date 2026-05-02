@@ -12,6 +12,7 @@ import (
 	"net/url"
 	"os"
 	"os/exec"
+	"path"
 	"path/filepath"
 	"strconv"
 	"strings"
@@ -565,7 +566,7 @@ func (s *LocalPlaybackService) serveHLSPlaylist(
 			modified = append(modified, rewriteHLSURIAttribute(line, mediaID, querySuffix))
 			continue
 		}
-		if isRelativeHLSMediaReference(trimmed) {
+		if isRewritableHLSMediaReference(trimmed) {
 			modified = append(modified, fmt.Sprintf("/api/stream/%s/%s%s", mediaID, hlsMediaReferenceName(trimmed), querySuffix))
 			continue
 		}
@@ -579,11 +580,22 @@ func (s *LocalPlaybackService) serveHLSPlaylist(
 	return nil
 }
 
-func isRelativeHLSMediaReference(line string) bool {
-	if line == "" || strings.HasPrefix(line, "#") || strings.HasPrefix(line, "/") || strings.HasPrefix(line, "http") {
+func isRewritableHLSMediaReference(line string) bool {
+	line = strings.TrimSpace(line)
+	if line == "" || strings.HasPrefix(line, "#") {
 		return false
 	}
-	ext := strings.ToLower(filepath.Ext(line))
+
+	lower := strings.ToLower(line)
+	if strings.HasPrefix(lower, "http://") ||
+		strings.HasPrefix(lower, "https://") ||
+		strings.HasPrefix(lower, "//") ||
+		strings.HasPrefix(lower, "data:") ||
+		strings.HasPrefix(lower, "blob:") {
+		return false
+	}
+
+	ext := strings.ToLower(path.Ext(normalizeHLSReferencePath(line)))
 	return ext == ".ts" || ext == ".m4s" || ext == ".mp4"
 }
 
@@ -600,7 +612,7 @@ func rewriteHLSURIAttribute(line string, mediaID string, querySuffix string) str
 	}
 	end += start
 	target := line[start:end]
-	if !isRelativeHLSMediaReference(target) {
+	if !isRewritableHLSMediaReference(target) {
 		return line
 	}
 	replacement := fmt.Sprintf("/api/stream/%s/%s%s", mediaID, hlsMediaReferenceName(target), querySuffix)
@@ -627,12 +639,20 @@ func hlsMediaReferenceName(target string) string {
 		return target
 	}
 
-	base := filepath.Base(target)
-	if base == "." || base == string(filepath.Separator) {
+	base := path.Base(normalizeHLSReferencePath(target))
+	if base == "." || base == "/" {
 		return target
 	}
 
 	return base
+}
+
+func normalizeHLSReferencePath(target string) string {
+	target = strings.TrimSpace(target)
+	if cut := strings.IndexAny(target, "?#"); cut >= 0 {
+		target = target[:cut]
+	}
+	return strings.ReplaceAll(target, "\\", "/")
 }
 
 func (s *LocalPlaybackService) resolvePlayableFile(ctx context.Context, mediaID string) (*models.LocalMedia, *models.LocalMediaFile, error) {

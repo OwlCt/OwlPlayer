@@ -438,7 +438,7 @@ func TestLocalPlaybackServiceServeLosslessHLSPlaylistRewritesAbsoluteInitMap(t *
 		t.Fatalf("MkdirAll() error = %v", err)
 	}
 
-	absoluteInitPath := filepath.Join(dir, "init.mp4")
+	absoluteInitPath := "/tmp/owlplayer-hls/init.mp4"
 	playlist := strings.Join([]string{
 		"#EXTM3U",
 		"#EXT-X-VERSION:7",
